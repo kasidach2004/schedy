@@ -1,0 +1,495 @@
+/* schedule_style.css */
+
+/* === Loading Overlay === */
+#loading-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #f8fafc; /* เปลี่ยนพื้นหลังเป็นสีสว่าง */
+    z-index: 9999;
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+    transition: opacity 0.5s ease;
+}
+.spinner {
+    width: 50px; height: 50px; 
+    border: 5px solid #e2e8f0; /* เปลี่ยนขอบวงแหวนให้เข้ากับพื้นสว่าง */
+    border-top: 5px solid #0d6efd; border-radius: 50%;
+    animation: spin 1s linear infinite; margin-bottom: 20px;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.loading-text { 
+    color: #1e293b; /* ตัวอักษรสีเทาเข้มเกือบดำ */
+    font-size: 1.2rem; font-family: 'Kanit', sans-serif; letter-spacing: 1px; 
+    animation: pulse 1.5s infinite; 
+}
+@keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
+/* === Global Styles === */
+html, body { 
+    height: 100%; margin: 0;
+    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1a3a52); /* พื้นหลังอยู่นิ่ง ไม่ลายตาแล้ว */
+    color: #f8f9fa; font-family: "Kanit", sans-serif; overflow: hidden; 
+}
+
+.d-flex { height: 100%; display: flex; flex-wrap: nowrap; overflow: hidden; }
+
+/* === SCROLLBAR STYLING === */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; transition: background 0.2s; }
+::-webkit-scrollbar-thumb:hover { background: #777; }
+
+/* === Sidebar Styles === */
+.sidebar { 
+    background: #212529; width: 270px; height: 100%; overflow-y: auto; flex-shrink: 0; 
+    padding-top: 20px; transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 1000; 
+    border-right: 1px solid rgba(255,255,255,0.1); 
+}
+.sidebar.collapsed { width: 80px; }
+.sidebar.collapsed .sidebar-text, .sidebar.collapsed .profile-details { display: none !important; }
+.sidebar.collapsed .nav-link { justify-content: center; padding-left: 0; padding-right: 0; }
+.sidebar.collapsed .nav-link i { margin-right: 0 !important; font-size: 1.3rem; }
+.sidebar.collapsed .header-icon { margin-right: 0 !important; }
+.sidebar.collapsed .profile-card { padding: 10px 5px; }
+.sidebar.collapsed .profile-card i { font-size: 2.2rem; margin-bottom: 0; }
+
+/* === ปุ่ม Toggle Sidebar สไตล์ Minimal === */
+.sidebar-toggle {
+  position: fixed; 
+  top: 20px;
+  left: 255px; 
+  z-index: 1001;
+  background: #343a40; 
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px; 
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-toggle i {
+  font-size: 0.85rem;
+  color: #adb5bd; 
+  transition: transform 0.4s ease, color 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+  background: #0d6efd; 
+  border-color: #0d6efd;
+}
+
+.sidebar-toggle:hover i {
+  color: #fff;
+}
+
+.sidebar.collapsed .sidebar-toggle {
+  left: 65px; 
+}
+
+.sidebar.collapsed .sidebar-toggle i {
+  transform: rotate(180deg); 
+  color: #fff;
+}
+
+.sidebar .nav-link { color: #f8f9fa; padding: 10px 15px; margin-bottom: 1px; border-radius: 8px; transition: background-color 0.2s; display: flex; align-items: center; white-space: nowrap; overflow: hidden; }
+.sidebar .nav-link:hover, .sidebar .nav-link.active { background-color: #0d6efd; color: white; }
+
+.profile-card { background: rgba(255, 255, 255, 0.1); padding: 2px 1px; border-radius: 10px; margin-bottom: 20px; text-align: center; transition: all 0.3s; overflow: hidden; }
+.profile-card i { margin-bottom: 10px; display: block; }
+.profile-details h5 { font-size: 0.95rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+.profile-details small { font-size: 0.8rem; color: #ccc; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+
+/* === Content Styles === */
+.content { 
+    padding: 40px; 
+    flex-grow: 1; 
+    height: 100%; 
+    overflow: auto; 
+    position: relative; 
+    overflow-anchor: none; 
+    overscroll-behavior: none;
+}
+
+/* === Elements Styles === */
+.main-card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border-radius: 15px; padding: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); min-width: 800px; }
+
+/* === Floating Action Panel (Day Nav + Actions) === */
+.day-navigator-container { 
+    position: fixed; bottom: 30px; right: 30px; z-index: 990; 
+    display: flex; flex-direction: column; align-items: center; gap: 8px; 
+}
+
+.day-nav-panel {
+    display: flex; flex-direction: column; gap: 5px;
+    background: rgba(10, 10, 20, 0.75); 
+    padding: 10px 8px; border-radius: 20px; 
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease;
+    transform-origin: bottom center; overflow: hidden; 
+    max-height: 600px; opacity: 1;
+}
+.day-nav-panel.collapsed { max-height: 0; opacity: 0; padding: 0; margin: 0; border: none; box-shadow: none; }
+
+.nav-panel-divider {
+    height: 1px; background: rgba(255,255,255,0.2); margin: 3px 0; border-radius: 2px;
+}
+
+.day-nav-btn { 
+    width: 40px; height: 40px; border-radius: 50%; border: 2px solid white; 
+    color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; 
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; 
+    text-decoration: none; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+}
+.day-nav-btn:hover { transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.5); color: white; }
+
+.nav-action-btn {
+    width: 40px; height: 40px; border-radius: 50%; border: none;
+    color: white; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    font-size: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    position: relative;
+}
+.nav-action-btn:hover { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+.nav-action-btn .nav-btn-tooltip {
+    position: absolute; right: 52px; top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.85); color: white; font-size: 0.75rem; font-family: 'Kanit', sans-serif;
+    padding: 4px 10px; border-radius: 8px; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.nav-action-btn:hover .nav-btn-tooltip { opacity: 1; }
+
+.day-nav-toggle { 
+    width: 48px; height: 48px; border-radius: 50%; background: #0d6efd; 
+    color: white; border: none; font-size: 1.2rem; cursor: pointer; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4); display: flex; justify-content: center; 
+    align-items: center; transition: all 0.3s ease; 
+}
+.day-nav-toggle:hover { background: #0b5ed7; transform: scale(1.1); }
+.day-nav-toggle i { transition: transform 0.3s ease; }
+.day-navigator-container.collapsed .day-nav-toggle i { transform: rotate(180deg); }
+
+.unsaved-dot {
+    position: absolute; top: 2px; right: 2px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #ff4d4d; border: 2px solid rgba(0,0,0,0.5);
+    display: none;
+    animation: pulseDot 1.5s infinite;
+}
+@keyframes pulseDot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+}
+.has-unsaved .unsaved-dot { display: block; }
+
+.header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+.header-actions .btn { padding: 4px 8px; font-size: 0.85rem; }
+
+/* Grid Table Styles */
+.day-table-container { margin-bottom: 30px; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); width: 100%; scroll-margin-top: 20px; }
+@media screen { .day-table-container { overflow: hidden; } }
+.day-header { padding: 15px; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); }
+table.day-table { width: 100%; border-collapse: separate; border-spacing: 0; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); table-layout: fixed; }
+.day-table th { background: rgba(13, 110, 253, 0.6); color: #fff; text-align: center; padding: 8px 5px; border: 1px solid rgba(255, 255, 255, 0.1); min-width: 80px; font-size: 0.85rem; }
+.day-table td { border: 1px solid rgba(255, 255, 255, 0.15); height: 60px; text-align: center; vertical-align: middle; background: rgba(255, 255, 255, 0.03); padding: 0; }
+
+.dropzone:hover { background: rgba(13, 110, 253, 0.25); cursor: pointer; box-shadow: inset 0 0 15px rgba(13, 110, 253, 0.3); transition: 0.2s; }
+.dropzone.drag-over { background-color: rgba(13, 202, 240, 0.3) !important; box-shadow: inset 0 0 10px #0dcaf0; }
+.scheduled-course { color: #fff; padding: 2px 4px; border-radius: 4px; font-size: 0.75rem; position: relative; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); height: 100%; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); line-height: 1.2; }
+.scheduled-course:hover { transform: scale(1.03); z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.remove-course { position: absolute; top: 0; right: 0; border: none; background: rgba(0,0,0,0.2); color: #fff; font-size: 0.65rem; width: 18px; height: 18px; display:flex; align-items:center; justify-content:center; border-bottom-left-radius: 4px; cursor: pointer; opacity: 0.7; z-index: 20; }
+.remove-course:hover { background: #dc3545; opacity: 1; }
+
+/* Right Sidebar */
+.sticky-course-list { position: sticky; top: 0; z-index: 10; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(15px); color: #f8f9fa; padding: 15px; border-radius: 10px; max-height: calc(100vh - 80px); overflow-y: auto; border: 1px solid rgba(255, 255, 255, 0.1); }
+.course-list-dropdown .form-select, #curriculum-select { background-color: #343a40; color: #f8f9fa; border-color: #495057; }
+#course-list .list-group-item { background: rgba(255, 255, 255, 0.1); color: #f8f9fa; border: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 8px; cursor: grab; }
+.merged { background: rgba(13, 110, 253, 0.15); }
+.col-transition { transition: all 0.3s ease; }
+
+/* ========= PRINT CSS ========= */
+#combined-print-container { display: none; }
+#print-split-container { display: none; }
+#print-header, #print-footer, #print-signature { display: none; }
+
+@media print {
+    @page { size: A4 landscape; margin: 8mm; }
+
+    /* ── Reset ── */
+    html, body {
+        height: auto !important;
+        width: 100% !important;
+        overflow: visible !important;
+        background: white !important;
+        color: black !important;
+        font-family: 'Kanit', sans-serif !important;
+        display: block !important;
+        animation: none !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    body * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    /* ── ซ่อน ทุกอย่างที่ไม่ใช่ print container ── */
+    body > *:not(#print-split-container):not(#combined-print-container-wrapper):not(.d-flex) {
+        display: none !important;
+    }
+    /* ซ่อน sidebar, header, controls ทั้งหมด */
+    #sidebar, .sidebar, .sidebar-toggle, .sticky-course-list, .btn, .remove-course,
+    #loading-overlay, #room-filter-container, h2, .day-navigator-container, .day-navigator,
+    .day-nav-panel, .day-nav-toggle, .nav-action-btn, #dayNavContainer,
+    .header-actions, .profile-card, .header-icon, .nav-pills, #btnToggleCourse,
+    #schedule-grid-container, .modal, hr, .col-md-3,
+    #teacherLoadModal {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    /* ซ่อน d-flex layout wrapper และ sidebar โดยตรง */
+    .d-flex > .sidebar,
+    .d-flex > #sidebar,
+    .d-flex > .sidebar-toggle { display: none !important; visibility: hidden !important; }
+
+    .d-flex { display: block !important; height: auto !important; overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+    .content { padding: 0 !important; overflow: visible !important; height: auto !important; width: 100% !important; display: block !important; }
+    .main-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; min-width: unset !important; display: block !important; }
+    .row, .col-md-9, .col-md-12, .col-transition { display: block !important; width: 100% !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; flex: none !important; }
+
+    /* badge, icons */
+    .badge { display: none !important; }
+    .bg-dark { background-color: transparent !important; color: black !important; }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* VIEW ALL MODE — ใช้ #print-split-container              */
+    /* ─────────────────────────────────────────────────────── */
+    body:not(.single-room-mode) #combined-print-container { display: none !important; }
+    body:not(.single-room-mode) #print-split-container {
+        display: block !important;
+        width: 100% !important;
+        background: white !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+
+    /* แต่ละ block = 1 วัน + กลุ่มห้อง ≤ ROOMS_PER_PAGE */
+    .print-page-block {
+        page-break-before: auto !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        width: 100% !important;
+        background: white !important;
+        overflow: visible !important;
+        position: static !important;
+        display: block !important;
+    }
+    .print-page-block:last-child {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+    }
+
+    .print-day-header {
+        background: #e9ecef !important;
+        color: black !important;
+        border: 1px solid #000 !important;
+        border-bottom: none !important;
+        text-align: center;
+        font-size: 12pt !important;
+        font-weight: bold;
+        padding: 5px 8px !important;
+        display: block !important;
+    }
+    .print-day-header .print-schedule-name {
+        font-size: 8.5pt !important;
+        font-weight: normal;
+        color: #333 !important;
+    }
+
+    /* ตาราง split (VIEW ALL) */
+    .print-split-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important;
+        margin-bottom: 0 !important;
+    }
+    .print-split-table thead { display: table-header-group !important; }
+    .print-split-table tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        height: 60px !important; /* ความสูงแถวคงที่ */
+    }
+    .print-split-table th {
+        background: #f8f9fa !important;
+        color: black !important;
+        border: 1px solid #000 !important;
+        font-weight: bold;
+        font-size: 7.5pt !important;
+        padding: 3px 2px !important;
+        text-align: center;
+        height: 30px !important;
+    }
+    .print-split-table td {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #000 !important;
+        height: 60px !important;
+        padding: 2px !important;
+        font-size: 7.5pt !important;
+        word-break: break-word !important;
+        vertical-align: middle;
+        text-align: center;
+        overflow: hidden !important;
+    }
+    .print-split-table td.room-label-cell {
+        background: #e9ecef !important;
+        color: black !important;
+        font-weight: bold;
+        font-size: 8pt !important;
+        width: 70px !important;
+        text-align: center;
+    }
+    .print-split-table .scheduled-course {
+        background: transparent !important;
+        color: black !important;
+        border: none !important;
+        box-shadow: none !important;
+        text-align: center;
+        padding: 2px !important;
+        display: block !important;
+        height: auto !important;
+        transform: none !important;
+    }
+    .print-split-table .scheduled-course div.fw-bold { font-size: 8pt !important; line-height: 1.2; color: black !important; }
+    .print-split-table .scheduled-course div.text-truncate { font-size: 7.5pt !important; white-space: normal !important; overflow: visible !important; line-height: 1.2; color: black !important; }
+    .print-split-table .scheduled-course div.small { font-size: 7pt !important; color: black !important; white-space: normal !important; word-break: break-word; line-height: 1.2; }
+    .print-split-table .scheduled-course > div.mt-1 { font-size: 7pt !important; color: black !important; background: transparent !important; border: none !important; padding: 0 !important; white-space: normal !important; word-break: break-word; line-height: 1.2; margin-top: 1px !important; }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* SINGLE ROOM MODE — ใช้ #combined-print-container       */
+    /* ─────────────────────────────────────────────────────── */
+    body.single-room-mode #print-split-container { display: none !important; }
+    body.single-room-mode #combined-print-container {
+        display: block !important;
+        width: 100% !important;
+        background: white !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+
+    /* header ส่วนบน (FTE.Schedule, วันที่, ชื่อห้อง) */
+    .combined-print-header {
+        display: block !important;
+        width: 100% !important;
+        background: white !important;
+        color: black !important;
+        margin-bottom: 8px;
+    }
+
+    /* ตาราง combined */
+    .combined-table {
+        table-layout: fixed !important;
+        margin-bottom: 0 !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+    .combined-table thead { display: table-header-group !important; }
+    .combined-table tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        height: 60px !important; /* ความสูงแถวคงที่ทุกแถว */
+    }
+    .combined-table th {
+        background-color: #e9ecef !important;
+        color: #000 !important;
+        border: 1px solid #000 !important;
+        font-size: 8pt !important;
+        padding: 4px 2px !important;
+        text-align: center;
+        vertical-align: middle;
+        font-weight: bold;
+        height: 30px !important;
+    }
+    .combined-table td {
+        border: 1px solid #000 !important;
+        font-size: 8pt !important;
+        padding: 3px 2px !important;
+        text-align: center;
+        vertical-align: middle;
+        word-break: break-word;
+        color: black !important;
+        height: 60px !important;
+        overflow: hidden !important;
+        background: white !important;
+    }
+    .combined-table td:first-child {
+        width: 50px !important;
+        background-color: #e9ecef !important;
+        font-weight: bold;
+    }
+    .scheduled-course-print {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        color: #000 !important;
+        gap: 2px;
+    }
+
+    /* ── ส่วนลงชื่อ: อยู่ล่างสุด ห้ามถูกบัง ── */
+    .print-signature-section {
+        display: flex !important;
+        justify-content: space-between;
+        padding: 0 15px;
+        color: black !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-top: 15px !important;
+        width: 100% !important;
+        background: white !important;
+        position: static !important;
+        clear: both !important;
+        box-sizing: border-box !important;
+    }
+    .sig-block { text-align: center; font-size: 9pt; }
+}
+/* =====================================================================
+   Touch / iPad Support
+   ===================================================================== */
+
+/* ป้องกัน text selection ขณะ drag บน touch */
+.draggable-course, .scheduled-course {
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: none; /* บอก browser ว่า element นี้จัดการ touch เอง */
+}
+
+/* Dropzone highlight บน touch */
+.dropzone.drag-over {
+    background-color: rgba(13, 202, 240, 0.25) !important;
+    outline: 2px dashed #0dcaf0 !important;
+}
+
+/* ปรับ touch target ให้ใหญ่พอสำหรับนิ้ว (44px min) */
+@media (pointer: coarse) {
+    .dropzone {
+        min-height: 44px;
+    }
+    .remove-course {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+    .day-nav-btn, .nav-action-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    /* Course list item ให้แตะง่ายขึ้น */
+    .draggable-course.list-group-item {
+        padding: 12px 10px;
+    }
+}

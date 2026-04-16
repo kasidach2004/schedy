@@ -1,0 +1,148 @@
+/* =====================================================================
+   css/schedule_clean.css - CLEAN THEME (โหมดสว่าง / มินิมอล)
+   ===================================================================== */
+body.clean-theme {
+    background: #f4f7f6 !important;
+    color: #334155 !important;
+    animation: none !important; /* ปิดเอฟเฟกต์สีพื้นหลังขยับ */
+}
+
+/* Sidebar */
+body.clean-theme .sidebar {
+    background: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+body.clean-theme .sidebar .nav-link { color: #475569 !important; }
+body.clean-theme .sidebar .nav-link:hover, 
+body.clean-theme .sidebar .nav-link.active {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+}
+body.clean-theme .profile-card {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #334155 !important;
+}
+body.clean-theme .profile-details small { color: #64748b !important; }
+
+/* Main Content & Cards */
+body.clean-theme .main-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+    color: #334155 !important;
+}
+
+/* 1. จัดการ Text ให้เป็นสีเข้ม (รวมถึง "ชื่อห้อง" คอลัมน์ซ้ายสุดของตาราง) */
+body.clean-theme h2, 
+body.clean-theme .text-white, 
+body.clean-theme .theme-label, 
+body.clean-theme .theme-title,
+body.clean-theme .day-table td:first-child,
+body.clean-theme .day-table td:first-child * {
+    color: #1e293b !important;
+    font-weight: 500 !important;
+}
+
+/* Form Select / Inputs */
+body.clean-theme .form-select.bg-dark {
+    background-color: #ffffff !important;
+    color: #334155 !important;
+    border-color: #cbd5e1 !important;
+}
+
+/* กล่องหลักสูตรด้านขวา */
+body.clean-theme .sticky-course-list {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}
+body.clean-theme #course-list .list-group-item {
+    background: #f8fafc !important;
+    color: #334155 !important;
+    border: 1px solid #e2e8f0 !important;
+}
+body.clean-theme .theme-close-btn { color: #64748b !important; border-color: #cbd5e1 !important;}
+body.clean-theme .theme-close-btn:hover { background: #f1f5f9 !important; color: #1e293b !important;}
+
+/* Floating Nav Panel */
+body.clean-theme .day-nav-panel {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+body.clean-theme .nav-action-btn {
+    background: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+}
+body.clean-theme .nav-action-btn:hover { background: #e2e8f0 !important; }
+body.clean-theme .nav-panel-divider { background: #e2e8f0 !important; }
+
+/* Modal & Tables */
+body.clean-theme .modal-content.bg-dark {
+    background: #ffffff !important;
+    color: #334155 !important;
+    border-color: #e2e8f0 !important;
+}
+body.clean-theme .modal-header.border-secondary { border-bottom-color: #e2e8f0 !important; }
+body.clean-theme .btn-close-white { filter: invert(1) grayscale(100%) brightness(200%) !important; }
+
+body.clean-theme .table-dark {
+    --bs-table-bg: #ffffff;
+    --bs-table-color: #334155;
+    border-color: #e2e8f0;
+}
+body.clean-theme .table-dark th {
+    background: #f8fafc !important;
+    color: #475569 !important;
+}
+
+/* Schedule Table Container (ตารางจัดสอน) */
+body.clean-theme table.day-table {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+}
+body.clean-theme .day-table th { background: #f8fafc !important; color: #475569 !important; border-color: #e2e8f0 !important; }
+body.clean-theme .day-table td { background: #ffffff !important; border-color: #e2e8f0 !important; }
+body.clean-theme .day-header { border-bottom: 1px solid #e2e8f0 !important; color: #1e293b !important; background: transparent !important; }
+body.clean-theme .dropzone.drag-over { background-color: rgba(59, 130, 246, 0.05) !important; box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.2) !important; }
+
+/* =========================================================
+   2. ลดความเข้มของสีบล็อกวิชา (Soft Course Blocks)
+   ========================================================= */
+body.clean-theme .scheduled-course {
+    border: 1px solid rgba(0,0,0,0.08) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04) !important;
+}
+
+/* ใช้ ::after สร้างฟิล์มสีขาวโปร่งแสงทับไปที่พื้นหลังเดิมที่เข้มๆ (0.55 คือความขาว 55%) */
+body.clean-theme .scheduled-course::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.55) !important; 
+    pointer-events: none; 
+    z-index: 0;
+}
+
+/* ทำให้ตัวหนังสือข้างในบล็อกวิชาลอยอยู่เหนือฟิล์ม และบังคับเป็นสีเทาเข้มเพื่อให้อ่านง่าย */
+body.clean-theme .scheduled-course > * {
+    position: relative;
+    z-index: 1;
+    color: #1e293b !important;
+    text-shadow: none !important;
+}
+
+/* แต่งปุ่มกากบาท (ลบวิชา) ให้กลืนกับตีมสว่าง */
+body.clean-theme .remove-course {
+    background: rgba(0,0,0,0.08) !important;
+    color: #64748b !important;
+    border-radius: 0 4px 0 4px !important;
+    z-index: 2 !important;
+}
+body.clean-theme .remove-course:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+
