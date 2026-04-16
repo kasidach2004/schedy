@@ -1,0 +1,5 @@
+# ป้องกันการเข้าถึงไฟล์ .env และไฟล์ที่ขึ้นต้นด้วยจุด
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

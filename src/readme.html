@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คู่มือการใช้งาน | ระบบจัดการตารางเรียน</title>
+    <link rel="icon" type="image/png" href="img/FTE.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        /* Sidebar Navigation */
+        .manual-sidebar {
+            position: sticky;
+            top: 20px;
+            height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        
+        .nav-pills .nav-link {
+            color: #495057;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            padding: 10px 15px;
+            transition: all 0.2s;
+        }
+        
+        .nav-pills .nav-link:hover {
+            background-color: #e9ecef;
+            color: #0d6efd;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: #0d6efd;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(13, 110, 253, 0.2);
+        }
+
+        /* Content Sections */
+        .manual-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            scroll-margin-top: 20px;
+        }
+
+        h2 {
+            color: #0d6efd;
+            font-weight: 600;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 10px;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            font-weight: 500;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-left: 4px solid #0d6efd;
+            padding-left: 10px;
+        }
+
+        /* Image Style for Instructions */
+        .instruction-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin: 15px 0 25px 0;
+            display: block;
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 250px;
+            background-color: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+        
+        /* Developer Credit Style */
+        .dev-credits {
+            font-size: 0.95rem;
+            color: #6c757d;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #dee2e6;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-book me-2"></i> คู่มือการใช้งาน
+            </a>
+            <div class="ms-auto">
+                <a href="home.php" class="btn btn-outline-light btn-sm">
+                    <i class="fas fa-arrow-left me-1"></i> กลับสู่ระบบ
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-md-3 d-none d-md-block">
+                <div class="manual-sidebar">
+                    <h5 class="mb-3 px-2 fw-bold text-secondary">สารบัญ</h5>
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" href="#intro">บทนำ</a>
+                        <a class="nav-link" href="#master-data">1. การเตรียมข้อมูลพื้นฐาน</a>
+                        <a class="nav-link" href="#curriculum">2. การจัดการหลักสูตร</a>
+                        <a class="nav-link" href="#schedule">3. หน้าตารางสอน (หน้าหลัก)</a>
+                        <a class="nav-link" href="#admin">4. สำหรับผู้ดูแลระบบ</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                
+                <div id="intro" class="manual-section">
+                    <div class="text-center mb-4">
+                        <h1 class="fw-bold text-dark">ระบบจัดการตารางเรียน</h1>
+                        <p class="text-secondary">ภาควิชาคอมพิวเตอร์ศึกษา (Computer Education Scheduling System)</p>
+                    </div>
+                    <p class="lead">
+                        ยินดีต้อนรับสู่ระบบบริหารจัดการตารางเรียนออนไลน์ ระบบนี้ช่วยอำนวยความสะดวกในการวางแผนการเรียนการสอน จัดการรายชื่ออาจารย์ รายวิชา และห้องเรียน ให้เป็นระบบและตรวจสอบความถูกต้องได้ง่ายดาย
+                    </p>
+                </div>
+
+                <div id="master-data" class="manual-section">
+                    <h2><i class="fas fa-database"></i> 1. การเตรียมข้อมูลพื้นฐาน</h2>
+                    <p>ก่อนที่จะเริ่มจัดตารางสอนได้ ท่านจำเป็นต้องเพิ่มข้อมูลพื้นฐานลงในระบบเสียก่อน โดยไปที่เมนูด้านซ้ายมือ</p>
+
+                    <h3>1.1 จัดการรายชื่ออาจารย์</h3>
+                    <p>ไปที่เมนู <strong>"รายชื่ออาจารย์"</strong> เพื่อบันทึกข้อมูลอาจารย์ผู้สอน ท่านสามารถเพิ่มข้อมูลได้ 2 วิธี:</p>
+                    
+                    <p><strong>วิธีที่ 1: เพิ่มอาจารย์ใหม่ (ทีละรายการ)</strong><br>คลิกปุ่ม "เพิ่มอาจารย์" ระบบจะแสดงหน้าต่างให้กรอกข้อมูลดังนี้: ชื่ออาจารย์, ชื่อย่ออาจารย์ (ใช้แสดงในตารางให้กระชับ), ภาระโหลดสูงสุด (ชั่วโมง), และเงื่อนไขพิเศษ</p>
+                    <img src="img/UI/Addteachers.png" alt="การเพิ่มอาจารย์ใหม่" class="instruction-img">
+
+                    <p><strong>วิธีที่ 2: นำเข้าข้อมูลอาจารย์จาก CSV</strong><br>หากท่านมีข้อมูลอาจารย์จำนวนมาก สามารถคลิกปุ่ม "นำเข้า CSV" โดยไฟล์ต้องมีรูปแบบคือ: <code>ชื่อ, ชื่อย่อ, ภาระโหลด, เงื่อนไข</code></p>
+                    <img src="img/UI/Importteachers.png" alt="การนำเข้าข้อมูลอาจารย์จาก CSV" class="instruction-img">
+
+                    <hr>
+
+                    <h3>1.2 จัดการวิชา</h3>
+                    <p>ไปที่เมนู <strong>"วิชา"</strong> เพื่อบันทึกรายวิชาที่จะเปิดสอน ท่านสามารถเพิ่มได้ 2 วิธีเช่นกัน:</p>
+                    
+                    <p><strong>วิธีที่ 1: เพิ่มวิชาใหม่</strong><br>กรอกรายละเอียด ได้แก่ รหัสวิชา, ชื่อวิชา, หน่วยกิต, จำนวนชั่วโมง/สัปดาห์ และเลือกอาจารย์ผู้สอนประจำวิชานั้นๆ จากรายชื่อที่เคยบันทึกไว้</p>
+                    <img src="img/UI/Addcourses.png" alt="หน้าต่างเพิ่มวิชาใหม่" class="instruction-img">
+
+                    <p><strong>วิธีที่ 2: นำเข้าข้อมูลวิชา (CSV)</strong><br>อัปโหลดไฟล์ CSV ตามรูปแบบที่ระบบกำหนดคือ: <code>รหัสวิชา, ชื่อวิชา, หน่วยกิต, ชั่วโมงเรียน</code> (ตัวอย่าง: CS101, โปรแกรมเบื้องต้น, 3, 4)</p>
+                    <img src="img/UI/Importcourses.png" alt="หน้าต่างนำเข้าวิชา CSV" class="instruction-img">
+
+                    <hr>
+
+                    <h3>1.3 จัดการห้องเรียน (กลุ่มเรียน/Section)</h3>
+                    <p>ไปที่เมนู <strong>"ห้องเรียน"</strong> ใช้สำหรับระบุ "กลุ่มนักศึกษา" ที่เรียนด้วยกัน เช่น CED-DE-RA, TCT-DE-RB</p>
+                    <img src="img/UI/AddClassroom.png" alt="หน้าต่างเพิ่มห้องเรียน" class="instruction-img">
+                    <p>กรอกชื่อห้องเรียน (กลุ่มเรียน) และสามารถใส่หมายเหตุเพิ่มเติมได้หากต้องการ จากนั้นกด "บันทึก"</p>
+
+                    <hr>
+
+                    <h3>1.4 จัดการหมายเลขห้องเรียน (สถานที่เรียน)</h3>
+                    <p>ไปที่เมนู <strong>"หมายเลขห้องเรียน"</strong> ใช้สำหรับระบุสถานที่เรียนหรือห้องปฏิบัติการจริง เช่น ห้อง 1101, 2205</p>
+                    <img src="img/UI/AddNumberRoom.png" alt="หน้าต่างเพิ่มหมายเลขห้องเรียน" class="instruction-img">
+                    <p>ระบุหมายเลขห้อง และสามารถใส่หมายเหตุเพื่อระบุประเภทห้อง (เช่น ห้องปฏิบัติการคอมพิวเตอร์) เพื่อป้องกันความสับสน</p>
+                </div>
+
+                <div id="curriculum" class="manual-section">
+                    <h2><i class="fas fa-graduation-cap"></i> 2. การจัดการหลักสูตรและแผนการเรียน</h2>
+                    <p>เมื่อเตรียมข้อมูลพื้นฐานครบแล้ว ให้นำข้อมูลเหล่านั้นมาจัดกลุ่มเข้าด้วยกันในเมนู <strong>"หลักสูตร"</strong> ว่าในเทอมนั้นๆ มีวิชาอะไรสอนให้กลุ่มไหนบ้าง</p>
+
+                    <h3>2.1 การสร้างหลักสูตรใหม่</h3>
+                    <p>กดปุ่ม "เพิ่มหลักสูตร" และระบุข้อมูล: <strong>ชื่อหลักสูตร</strong> (เช่น CED, TCT, TCT-RA), <strong>ภาคเรียน</strong> (เช่น 1, 2 หรือ 3), และ <strong>ปีการศึกษา (พ.ศ.)</strong> (เช่น 2569)</p>
+                    <img src="img/UI/Addcurriculums.png" alt="การเพิ่มหลักสูตรใหม่" class="instruction-img">
+                    
+                    <div class="alert alert-warning mb-4">
+                        <i class="fas fa-exclamation-triangle me-2"></i> <strong>ข้อควรระวัง:</strong> ชื่อหลักสูตรในส่วนนี้ <strong>ต้องตรงกับ</strong> ชื่อกลุ่มเรียนในเมนูห้องเรียน (เช่น ถ้าใส่ CED ต้องมีห้อง CED ในระบบ) เพื่อให้ระบบตารางสอนดึงข้อมูลไปแสดงผลได้อย่างถูกต้อง
+                    </div>
+
+                    <h3>2.2 การเพิ่มรายวิชาเข้าไปในหลักสูตร</h3>
+                    <p>หลังจากสร้างหัวข้อหลักสูตรเสร็จแล้ว ให้คลิกจัดการหลักสูตรนั้น เพื่อเพิ่มวิชาที่เปิดสอน โดยระบบจะให้ท่านเลือก: <strong>วิชา</strong> (จาก Dropdown), <strong>ห้องเรียน</strong> (กลุ่มเรียน), <strong>หน่วยกิต</strong>, <strong>ชั่วโมง/สัปดาห์</strong> และกำหนด <strong>อาจารย์ผู้สอน</strong> อีกครั้ง</p>
+                    <img src="img/UI/Add-coures-curriculums.png" alt="การเพิ่มวิชาในหลักสูตร" class="instruction-img">
+                    <p>เมื่อเพิ่มวิชาในหลักสูตรครบถ้วนแล้ว ข้อมูลเหล่านี้จะไปปรากฏเป็นบล็อกรายวิชาที่หน้าต่าง "ตารางสอน" เพื่อให้ท่านลากลงเวลาเรียนต่อไป</p>
+                </div>
+
+                <div id="schedule" class="manual-section">
+                    <h2><i class="fas fa-calendar-alt"></i> 3. หน้าตารางสอน (หน้าหลักของระบบ)</h2>
+                    <p>เมื่อเข้าสู่ระบบ (หรือเมื่อเตรียมข้อมูลเสร็จแล้ว) หน้าหลักสำหรับการทำงานคือหน้า <strong>"ตารางสอน"</strong> ซึ่งเป็นหน้าจอหลักสำหรับดูภาพรวมและจัดการตารางเรียน</p>
+                     <img src="img/UI/schedule.png" alt="หน้าจัดการตารางสอนหลัก" class="instruction-img">
+
+                    <h3>3.1 แถบเครื่องมือจัดการตาราง (Toolbar)</h3>
+                    <img src="img/UI/function.png" alt="แถบเครื่องมือด้านขวา" class="instruction-img" style="max-height: 400px; width: auto; display: block; margin-left: auto; margin-right: auto;">
+                    <ul>
+                        <li><strong>ไอคอนเครื่องมือส่วนบน:</strong> ประกอบด้วยปุ่มฟังก์ชันสำคัญ
+                            <br>1. สลับรูปแบบมุมมองตาราง
+                            <br>2. บันทึกข้อมูลตาราง
+                            <br>3. นำออกข้อมูล (Export เป็น Excel)
+                            <br>4. พิมพ์ตารางสอน (Print) 
+                            <br>5. ดูสถิติ/กราฟสรุปภาระงาน</li>
+                        <li><strong>ปุ่มสลับวัน (จ. - อา.):</strong> ใช้สำหรับคลิกเพื่อเปลี่ยนหน้าจอไปยังตารางสอนของวันอื่นๆ ในสัปดาห์ (จันทร์ ถึง อาทิตย์)</li>
+                        <li><strong>ปุ่มลูกศร (ด้านล่าง):</strong> ใช้สำหรับย่อหรือขยายแถบเครื่องมือ</li>
+                    </ul>
+                 
+                    <h3>3.2 ส่วนประกอบของหน้าตารางสอน</h3>
+                    <img src="img/UI/scheduleM.png" alt="ส่วนประกอบหน้าตารางสอนหลัก" class="instruction-img">
+                    <ul>
+                        <li><strong>เมนูด้านซ้าย (Sidebar):</strong> ใช้สำหรับนำทางไปยังส่วนต่างๆ ของระบบ เช่น รายชื่ออาจารย์, วิชา, หลักสูตร, ห้องเรียน ฯลฯ</li>
+                        <li><strong>ตารางเวลา (ตรงกลาง):</strong> ตารางแสดงเวลาเรียนเริ่มตั้งแต่ 08:00 น. ถึง 21:00 น. แบ่งออกเป็นช่วงเวลาละ 1 ชั่วโมง พร้อมบอกชื่อกลุ่มเรียนในคอลัมน์ซ้าย</li>
+                        <li><strong>กล่องหลักสูตร (ด้านขวา):</strong> แสดงรายวิชาในรูปแบบกล่องบล็อก (Block) ที่ดึงข้อมูลมาจากหลักสูตร ซึ่งพร้อมให้ท่านคลิกค้างและลาก (Drag & Drop) ไปวางในตารางเวลา</li>
+                    </ul>
+
+                    <h3>3.3 การตั้งค่าบล็อกแบ่งสอน (เมื่อลากวิชาลงตาราง)</h3>
+                    <img src="img/UI/scheduleM2.png" alt="หน้าต่างตั้งค่าบล็อกแบ่งสอน" class="instruction-img">
+                    <p>เมื่อท่านลากกล่องวิชามาวางในช่องเวลาบนตาราง ระบบจะแสดงหน้าต่าง <strong>"ตั้งค่าบล็อกแบ่งสอน"</strong> เพื่อให้ท่านยืนยันและระบุรายละเอียดเพิ่มเติม ดังนี้:</p>
+                    <ul>
+                        <li><strong>1. เลือกอาจารย์:</strong> สามารถคลิกเลือกอาจารย์ผู้สอนประจำคาบนี้ได้ (สามารถติ๊กถูกได้มากกว่า 1 ท่าน กรณีที่มีการสอนร่วมกัน)</li>
+                        <li><strong>2. เลือกหมายเลขห้อง:</strong> ค้นหาและระบุสถานที่เรียน (ห้องเรียน) ที่จะใช้สอนในคาบนั้น</li>
+                        <li><strong>3. กำหนดภาระงาน (ต่อ 1 คน):</strong> ระบบจะให้ระบุจำนวนชั่วโมงที่สอนสำหรับบล็อกนี้ โดยสามารถกดปุ่ม <strong>"ภาระงานเต็มจำนวน"</strong> เพื่อให้ระบบดึงจำนวนชั่วโมงรวมของวิชานั้นมาเติมให้อัตโนมัติ</li>
+                        <li>เมื่อระบุข้อมูลครบถ้วน ให้กดปุ่ม <span class="badge bg-primary">✓ วางลงตาราง</span> กล่องวิชานั้นจะถูกจัดลงในตารางเรียนทันที</li>
+                    </ul>
+                </div>
+
+                <div id="admin" class="manual-section border-start border-5 border-warning mb-4">
+                    <h2><i class="fas fa-user-shield text-warning"></i> 4. สำหรับผู้ดูแลระบบ</h2>
+                    <p>ส่วนนี้สำหรับผู้ที่มีสิทธิ์ระดับ Admin เท่านั้น เพื่อดูแลความเรียบร้อยของสมาชิกในระบบผ่านเมนู <strong>"จัดการผู้ใช้งาน"</strong></p>
+
+                    <h3>การอนุมัติและการจัดการสมาชิก</h3>
+                    <ul>
+                        <li><strong>การอนุมัติบัญชี:</strong> ผู้ใช้ที่สมัครใหม่จะมีสถานะ <span class="badge bg-secondary">Pending</span> Admin ต้องกดอนุมัติก่อน จึงจะสามารถใช้งานระบบได้</li>
+                        <li><strong>การจัดการสิทธิ์:</strong> Admin สามารถระงับการใช้งาน ลบผู้ใช้ หรือตรวจสอบข้อมูลทั่วไปของสมาชิกในระบบได้</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-secondary text-center mt-4">
+                    <p class="mb-0">หากพบปัญหาการใช้งาน กรุณาติดต่อผู้ดูแลระบบภาควิชาคอมพิวเตอร์ศึกษา</p>
+                </div>
+
+                <div class="dev-credits text-center mb-5">
+                    <p class="mb-1"><i class="fas fa-code me-2"></i><strong>พัฒนาระบบและจัดทำคู่มือโดย:</strong></p>
+                    <p class="mb-0 fs-5">นายกษิด์เดช ปราบพาล <span class="mx-2 text-muted">|</span> นายบรรณวัชร บำรุง</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Update active state in sidebar
+                document.querySelectorAll('.manual-sidebar .nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Scroll to section
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
